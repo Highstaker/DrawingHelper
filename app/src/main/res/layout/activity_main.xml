@@ -1,0 +1,113 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal" >
+
+    <android.view.TextureView
+        android:id="@+id/preview"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
+    <ImageView
+        android:id="@+id/preview2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="left|top"
+        android:contentDescription="@string/ImageView_desc" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:orientation="vertical"
+        >
+
+        <ToggleButton
+            android:id="@+id/button_flashlight"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="toggleFlashlight"
+            android:text="@string/button_flashlight"
+            android:textOff="@string/button_flashlight"
+            android:textOn="@string/button_flashlight" />
+
+        <ToggleButton
+            android:id="@+id/button_flipviewY"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="setIsMirroredY"
+            android:text="@string/button_flipviewY"
+            android:textOff="@string/button_flipviewY"
+            android:textOn="@string/button_flipviewY" />
+
+        <ToggleButton
+            android:id="@+id/button_flipviewX"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="setIsMirroredX"
+            android:text="@string/button_flipviewX"
+            android:textOff="@string/button_flipviewX"
+            android:textOn="@string/button_flipviewX" />
+
+        <ToggleButton
+            android:id="@+id/button_grayscale"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="setIsGrayscale"
+            android:text="@string/button_grayscale"
+            android:textOff="@string/button_grayscale"
+            android:textOn="@string/button_grayscale" />
+
+        <!--
+-
+    <RadioGroup
+        android:id="@+id/effectsRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+        
+<RadioButton
+        android:id="@+id/noEffectRadioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No effect" />
+      
+    <RadioButton
+        android:id="@+id/binaryRadioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Binary (slow!)" />
+
+        <RadioButton
+        android:id="@+id/grayscaleRadioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Grayscale" />
+    
+    </RadioGroup>
+        -->
+
+        <ToggleButton
+            android:id="@+id/button_binary"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="setIsBinary"
+            android:text="@string/button_binary"
+            android:textOff="@string/button_binary"
+            android:textOn="@string/button_binary" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textView1"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <SeekBar
+            android:id="@+id/seekBar_treshold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="255"
+            android:progress="128" />
+    </LinearLayout>
+
+</FrameLayout>
