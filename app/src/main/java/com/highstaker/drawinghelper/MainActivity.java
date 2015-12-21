@@ -228,12 +228,12 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
 		}
 
 		public void onStartTrackingTouch(SeekBar seekBar) {
-             // TODO Auto-generated method stub  
+
 		}
 
 		@Override
 		public void onStopTrackingTouch(SeekBar seekBar) {
-             // TODO Auto-generated method stub
+
 		}
 	};
 
@@ -250,53 +250,7 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
 	{
 		ckdebug("onResume() invoked");
 		super.onResume();
-
-        /*
-		mTextureView = (TextureView)findViewById(R.id.preview);
-		mTextureView.setSurfaceTextureListener(this);
-
-			 	/////get display size
-		DisplayMetrics displaymetrics = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-		int height = displaymetrics.heightPixels;
-	 	//int width = displaymetrics.widthPixels;
-
-		double aspect = 1.33;
-
-		mTextureView.getLayoutParams().width = (int)(height * aspect);
-		mTextureView.getLayoutParams().height = height;	 
-
-		mTextureView.setKeepScreenOn(true);
-		*/
-
-
-
-		//check for existence of cameras on device
-		// int numCams = Camera.getNumberOfCameras();
-		// if(numCams > 0)
-		// {
-
-        /*
-        camera = Camera.open(0);
-
-        Camera.Parameters params = camera.getParameters();
-        List<String> focusModes = params.getSupportedFocusModes();
-        if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE))
-        {
-            // set the focus mode
-            params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
-            // set Camera parameters
-            camera.setParameters(params);
-        }
-
-        camera.startPreview();
-        */
-
-        //mTextureView.setCamera(camera);
-        //camera.setPreviewTexture(mTextureView);
-
-
-    }
+    }//onResume()
 
 
     @Override
@@ -309,42 +263,34 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
     	}
 
     	super.onPause();	
-    }
+    }//onPause()
 
     @Override
     public void onStop(){
     	ckdebug("onStop() invoked");
     	super.onStop();
-		//stopPreviewAndRelease(camera);
-		//finish();
-    }
+    }//onStop()
 
     private void stopPreviewAndRelease(Camera camera)
     {
-		//if(cameraOn)
-		//{
     	camera.stopPreview();
-			//mTextureView.setCamera(null);
-            //camera.setPreviewTexture(mTextureView);
     	camera.lock();
     	camera.release();
-			//camera=null;
-    	cameraOn=false;		
+    	cameraOn=false;
     	ckdebug("Preview stopped. Camera released.");
-		//}
-    }
+    }//stopPreviewAndRelease
 
     @Override
     public void onRestart(){
     	ckdebug("onRestart() invoked");
     	super.onRestart();
-    }
+    }//onRestart()
 
     @Override
     public void onDestroy(){
     	ckdebug("onDestroy() invoked");
     	super.onDestroy();
-    }
+    }//onDestroy()
 
 	// Check if this device has a camera
     private boolean checkCameraHardware(Context context) 
@@ -358,7 +304,7 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
     		ckwarning("checkCameraHardware returns false");
     		return false;
     	}
-    }
+    }//checkCameraHardware()
 
 
     @Override
@@ -384,38 +330,31 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
     		ckdebug("failed to set preview texture");
     	}
 
+        //mTextureView.setTransform(transformMatrix());
+
     	camera.startPreview();
 
-
-  //       //applyOptions();       
-
-		// camera.startPreview();
-		// cameraOn=true;
-		// ckdebug("Preview started");
-    }
+    }//onSurfaceTextureAvailable()
 
     @Override
     public boolean onSurfaceTextureDestroyed(SurfaceTexture arg0) {
-		// TODO Auto-generated method stub
     	ckdebug("Surface texture destroyed");
     	if(camera != null)
     	{
     		stopPreviewAndRelease(camera);
     	}
     	return false;
-    }
+    }//onSurfaceTextureDestroyed()
 
     @Override
     public void onSurfaceTextureSizeChanged(SurfaceTexture arg0, int arg1,
     	int arg2) {
-		// TODO Auto-generated method stub
 
-    }
+    }//onSurfaceTextureSizeChanged
 
     @Override
     public void onSurfaceTextureUpdated(SurfaceTexture arg0) 
     {
-		// TODO Auto-generated method stub
     	if(viewIsBinary)
     	{
     		Bitmap bitmap = mTextureView.getBitmap();		
@@ -432,33 +371,27 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
     			int gray = (int)Math.round(databaseRGBtoBinary_reds[red]
     				+ databaseRGBtoBinary_greens[green] 
     				+ databaseRGBtoBinary_blues[blue]);
-			//int gray = (int)Math.round(0.2126*red + 0.7152*green + 0.0722*blue);			
+
     			int a = (gray >= TRESHOLD_VALUE)? 255 : 0;	
     			pixels[i] = Color.rgb(a, a, a) ;
 
-			//ckdebug("pixels[i] = " + pixels[i]);
-			//pixels[i] = databaseRGBtoBinary[pixels[i]] ? 255 : 0;
+
     		}
 
     		bitmap.setPixels(pixels, 0, bitmap_width, 0, 0, bitmap_width, bitmap_height);
-		/*Matrix flip_matrix = new Matrix();
-		if(viewIsMirroredX){
-		flip_matrix.preScale(-1, 1);
-	}	*/	
+
 	Bitmap bitmap2 = Bitmap.createBitmap(bitmap,0,0,bitmap_width,bitmap_height,transformMatrix(),false);
 	mImageView.setImageBitmap(bitmap2);
 }
 
-}
+}//onSurfaceTextureUpdated()
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         ckdebug("onSaveInstanceState() called");
 
-        //outState.putBoolean("STATE_FLASHLIGHT",flashlightOn);
-
         super.onSaveInstanceState(outState);
-    }
+    }//onSaveInstanceState
 
     public void toggleFlashlight(View view) {
 
@@ -490,5 +423,5 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
 		Toast.makeText(getBaseContext(),"Flashlight not found on this device",Toast.LENGTH_SHORT).show();
 	}
 
-}
-}
+}//toggleFlashlight
+}//MainActivity

@@ -58,34 +58,6 @@
             android:textOff="@string/button_grayscale"
             android:textOn="@string/button_grayscale" />
 
-        <!--
--
-    <RadioGroup
-        android:id="@+id/effectsRadioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-        
-<RadioButton
-        android:id="@+id/noEffectRadioButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="No effect" />
-      
-    <RadioButton
-        android:id="@+id/binaryRadioButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Binary (slow!)" />
-
-        <RadioButton
-        android:id="@+id/grayscaleRadioButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Grayscale" />
-    
-    </RadioGroup>
-        -->
-
         <ToggleButton
             android:id="@+id/button_binary"
             android:layout_width="fill_parent"
