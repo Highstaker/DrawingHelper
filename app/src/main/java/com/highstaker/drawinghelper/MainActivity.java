@@ -268,6 +268,7 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
     @Override
     public void onStop(){
     	ckdebug("onStop() invoked");
+        finish();
     	super.onStop();
     }//onStop()
 
@@ -390,7 +391,7 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
     protected void onSaveInstanceState(Bundle outState) {
         ckdebug("onSaveInstanceState() called");
 
-        super.onSaveInstanceState(outState);
+//        super.onSaveInstanceState(outState);
     }//onSaveInstanceState
 
     public void toggleFlashlight(View view) {
