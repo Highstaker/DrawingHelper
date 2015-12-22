@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.io.IOException;
 import java.util.List;
@@ -41,9 +42,6 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
 
 	private ImageView mImageView;
 
-    //a flag showing if a camera is on at this time
-	private boolean cameraOn=false;
-
 	    //a flag showing if a flashlight is on at this time
 	private boolean flashlightOn=false;
 
@@ -53,8 +51,7 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
 	//the treshold value for binary view
 	private int TRESHOLD_VALUE = 128;
 
-	//
-
+    private ToggleButton flashlightToggleButton;
 
     //returns the scale of the matrix as array {X,Y}
 	private float[] getMatrixScale(Matrix matrix)
@@ -83,13 +80,9 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
 	private Matrix transformMatrix()
 	{
 		Matrix matrix = new Matrix();
-        //float[] cur_scale = getMatrixScale(matrix);
-        //float[] cur_translate = getMatrixTranslate(matrix);
 		matrix.setScale((viewIsMirroredX ? -1 : 1), (viewIsMirroredY ? -1 : 1));
         //move it back to in view otherwise it'll be off to the left. 
 		matrix.postTranslate((viewIsMirroredX ? mTextureView.getWidth() : 1), (viewIsMirroredY ? mTextureView.getHeight() : 1));
-        //matrix.setTranslate(mTextureView.getWidth(), cur_translate[1]);            
-        //mTextureView.setTransform(matrix);
 		return matrix;
 	}
 
@@ -175,7 +168,6 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
 		if (savedInstanceState != null) 
 		{
 			//Restore saved values after the app has been restarted after destruction
-
 		}
 
 		if(!checkCameraHardware(getBaseContext()))
@@ -191,9 +183,10 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
 	    //Remove notification bar
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-		//sets the content view
-		setContentView(R.layout.activity_main);
+        //sets the content view
+        setContentView(R.layout.activity_main);
 
+        flashlightToggleButton = (ToggleButton)findViewById(R.id.button_flashlight);
 		mTextureView = (TextureView)findViewById(R.id.preview);
 		mTextureView.setSurfaceTextureListener(this);
 		mImageView = (ImageView)findViewById(R.id.preview2);
@@ -268,8 +261,10 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
     @Override
     public void onStop(){
     	ckdebug("onStop() invoked");
-        finish();
-    	super.onStop();
+        super.onStop();
+
+        this.finish();
+
     }//onStop()
 
     private void stopPreviewAndRelease(Camera camera)
@@ -277,7 +272,6 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
     	camera.stopPreview();
     	camera.lock();
     	camera.release();
-    	cameraOn=false;
     	ckdebug("Preview stopped. Camera released.");
     }//stopPreviewAndRelease
 
@@ -391,7 +385,7 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
     protected void onSaveInstanceState(Bundle outState) {
         ckdebug("onSaveInstanceState() called");
 
-//        super.onSaveInstanceState(outState);
+        super.onSaveInstanceState(outState);
     }//onSaveInstanceState
 
     public void toggleFlashlight(View view) {
@@ -421,6 +415,7 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
 	else
 	{
 		ckdebug("There is no flashlight in this device");
+        flashlightToggleButton.setChecked(false);
 		Toast.makeText(getBaseContext(),"Flashlight not found on this device",Toast.LENGTH_SHORT).show();
 	}
 
