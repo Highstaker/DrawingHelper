@@ -134,30 +134,25 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
 		}
 	}
 
-	boolean[] databaseRGBtoBinary;
 	double[] databaseRGBtoBinary_reds = new double[256];
 	double[] databaseRGBtoBinary_greens = new double[256];
 	double[] databaseRGBtoBinary_blues = new double[256];
 	private void generateDatabaseRGBtoBinary()
 	{
-		databaseRGBtoBinary = new boolean[256*256*256];
-
 		for(int i=0;i<256;i++)
 		{
 			databaseRGBtoBinary_reds[i] = 0.2126*i;
-		}  		
-		
-		
+		}
+
 		for(int i=0;i<256;i++)
 		{
 			databaseRGBtoBinary_greens[i] = 0.7152*i;
-		}  		
-		
-		
+		}
+				
 		for(int i=0;i<256;i++)
 		{
 			databaseRGBtoBinary_blues[i] = 0.0722*i;
-		}  		
+		}
 	}
 
 	@Override
