@@ -182,6 +182,13 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
         setContentView(R.layout.activity_main);
 
         flashlightToggleButton = (ToggleButton)findViewById(R.id.button_flashlight);
+
+        if(  !getBaseContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH) )
+        {
+            //no flashligh - remove the button. not with INVISIBLE, cuz it will still occupy space. use GONE instead.
+            flashlightToggleButton.setVisibility(View.GONE);
+        }
+
 		mTextureView = (TextureView)findViewById(R.id.preview);
 		mTextureView.setSurfaceTextureListener(this);
 		mImageView = (ImageView)findViewById(R.id.preview2);
